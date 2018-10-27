@@ -39,8 +39,7 @@ def search(message):
 	else:
 		bot.send_message(message.chat.id, 'Por favor, escribe /search Producto', parse_mode="HTML")
 
-		#bot.reply_to(message, "Precio = " + product_response['price'])
-		#bot.reply_to(message, product_response['url'])
+
 
 @bot.message_handler(commands=['departments'])
 def departments(message):
