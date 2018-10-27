@@ -7,3 +7,5 @@ pyTelegramBotAPI>=3.6,<4.0
 python-dotenv>=0.8,<1.0
 SQLAlchemy>=1.1.12,<2.0
 WebOb>=1.6,<2.0
+requests==2.20.0
+bs4==0.0.1
