@@ -50,3 +50,4 @@ def callback_query(call):
         subcategory = soup.find("a", text=name_category)
         href = subcategory['href']
         response = requests.get("https://amazon.es" + href)
+        soup = BeautifulSoup(response.content)
