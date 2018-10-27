@@ -46,10 +46,16 @@ def departments(message):
     soup = BeautifulSoup(response.content)
     categories = soup.findAll("h2",{"class":"popover-category-name"})
     click_kb = InlineKeyboardMarkup()
+    list_categories = []
+    i = 0
     for category in categories:
+        i += 1
         name_category = category.get_text()
         click_button = InlineKeyboardButton(name_category, callback_data='parent_' + name_category)
-        click_kb.row(click_button)
+        list_categories.append(click_button)
+        if i % 2 == 0:
+            click_kb.row(*list_categories)
+            list_categories = []
     bot.send_message(message.chat.id, "<b>Aquí se muestran todos los departamentos de Amazon...</b>",
      parse_mode="HTML", reply_markup=click_kb, disable_web_page_preview=True)
 
@@ -81,3 +87,5 @@ def callback_query(call):
         href = subcategory['href']
         response = requests.get("https://amazon.es" + href)
         soup = BeautifulSoup(response.content)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id
+        , text = 'https://www.amazon.es' + href, parse_mode="HTML")
