@@ -16,7 +16,7 @@ def search(message):
 	#import ipdb; ipdb.set_trace()
 	if len(message.text.split('/search')[1]) > 1:
 		object_search = message.text.split('/search')[1]
-		url = 'https://www.amazon.es/s/ref=nb_sb_noss_1?__mk_es_ES=ÅMÅŽÕÑ&url=search-alias%3Daps&field-keywords=' + object_search.encode('utf-8')
+		url = 'https://www.amazon.es/s/ref=nb_sb_noss_1?__mk_es_ES=ÅMÅŽÕÑ&url=search-alias%3Daps&field-keywords=' + object_search.encode(encoding='utf-8', errors='strict')
 		response = requests.get(url)
 		list_response_products = []
 		soup = BeautifulSoup(response.content)
