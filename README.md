@@ -37,7 +37,7 @@ Editar el archivo _.env_ y configuramos el _token_ de nuestro _bot_. El resto de
 
 Para instalarlo en local es necesario tener instalado _python2.7_ o _python3.x_ y _virtualenv_. Python viene instalado por defecto en cualquier distribución, pero _virtualenv_ es probable que no.
 
-Para instalar _virtualenv_ en _Debian_/_Ubuntu_ hacemos lo siguiente:
+Para Instalar _virtualenv_ en _Debian_/_Ubuntu_ hacemos lo siguiente:
 
 ```sh
 sudo apt-get install virtualenv
