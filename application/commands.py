@@ -10,6 +10,31 @@ def start(message):
     bot.reply_to(message, 'Bienvenido, ' + message.from_user.first_name + ' !!!')
 
 
+@bot.message_handler(commands=['search_cheaper'])
+def search_cheaper(message):
+    if len(message.text.split('/search_cheaper')[1]) > 1:
+        object_search = message.text.split('/search_cheaper')[1]
+        url = 'https://www.amazon.es/s/ref=sr_st_price-asc-rank?keywords=' + object_search.encode(encoding='utf-8', errors='strict') '&rh=i%3Aaps%2Ck%3Afundas&__mk_es_ES=%C3%85M%C3%85Z%C3%95%C3%91&qid=1540914465&sort=price-asc-rank'
+        response = requests.get(url)
+        list_response_products = []
+        soup = BeautifulSoup(response.content)
+
+        products = soup.find("div", {"id": "atfResults"})
+        list_products = products.find_all("li")
+        for product in list_products:
+            price = product.find("span", {"class": "a-size-base a-color-price s-price a-text-bold"})
+            if hasattr(price, 'text'):
+                price = price.text
+                url = product.find("a", {"a-link-normal a-text-normal"})
+                url = url['href']
+                list_response_products.append({'url':url, 'price':price})
+        html = ''
+        for product_response in list_response_products:
+            html += ' Precio: %s \n Url: %s ' % (product_response['price'], product_response['url'],)
+
+        bot.send_message(message.chat.id, html, parse_mode="HTML")
+    else:
+        bot.send_message(message.chat.id, 'Por favor, escribe /search_cheaper Producto', parse_mode="HTML")
 
 @bot.message_handler(commands=['search'])
 def search(message):
@@ -22,7 +47,7 @@ def search(message):
 		soup = BeautifulSoup(response.content)
 
 		products = soup.find("ul", {"id": "s-results-list-atf"})
-		list_products = products.findAll("li")
+		list_products = products.find_all("li")
 		for product in list_products:
 			price = product.find("span", {"class": "a-size-base a-color-price s-price a-text-bold"})
 			if hasattr(price, 'text'):
