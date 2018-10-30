@@ -14,12 +14,12 @@ def start(message):
 def search_cheaper(message):
     if len(message.text.split('/search_cheaper')[1]) > 1:
         object_search = message.text.split('/search_cheaper')[1]
-        url = 'https://www.amazon.es/s/ref=sr_st_price-asc-rank?keywords=' + object_search.encode(encoding='utf-8', errors='strict') '&rh=i%3Aaps%2Ck%3Afundas&__mk_es_ES=%C3%85M%C3%85Z%C3%95%C3%91&qid=1540914465&sort=price-asc-rank'
+        url = 'https://www.amazon.es/s/ref=sr_st_price-asc-rank?keywords=' + object_search.encode(encoding='utf-8', errors='strict') + '&rh=i%3Aaps%2Ck%3Afundas&__mk_es_ES=%C3%85M%C3%85Z%C3%95%C3%91&qid=1540914465&sort=price-asc-rank'
         response = requests.get(url)
         list_response_products = []
         soup = BeautifulSoup(response.content)
 
-        products = soup.find("div", {"id": "atfResults"})
+        products = soup.find("ul", {"id": "s-results-list-atf"})
         list_products = products.find_all("li")
         for product in list_products:
             price = product.find("span", {"class": "a-size-base a-color-price s-price a-text-bold"})
